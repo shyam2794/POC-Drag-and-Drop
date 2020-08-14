@@ -40,7 +40,7 @@ export const listToGroup = (result, listToFilter, groups) => {
   };
 };
 
-export const groupToList = (result, listToAdd, groups) => {
+export const groupToList = (result, groups) => {
   // Find the Lab to be moved
   const deepClonedGroup = JSON.parse(JSON.stringify(groups));
   const groupToUpdate = deepClonedGroup.find(
@@ -64,7 +64,8 @@ export const updateCondition = (
   group,
   conditionIndex,
   groupsList,
-  modifiedProp
+  modifiedProp,
+  condition = ""
 ) => {
   const clonedGroup = { ...group };
 
@@ -76,6 +77,9 @@ export const updateCondition = (
   clonedGroup.when.splice(conditionIndex, 1);
   clonedGroup.when.splice(conditionIndex, 0, updatedCondition);
 
+  if (condition) {
+    clonedGroup.condition = condition;
+  }
   const clonedGroupsList = [...groupsList];
 
   //

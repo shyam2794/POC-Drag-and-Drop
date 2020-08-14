@@ -15,7 +15,6 @@ const RulesContainer = () => {
       return;
     }
 
-    console.log(result);
     // reorder the items within the individual list;
     if (result.source.droppableId === result.destination.droppableId) {
       return;
@@ -35,8 +34,7 @@ const RulesContainer = () => {
       const { updatedGrouplist } = listToGroup(result, rest[itemName], groups);
       updateState({ groups: updatedGrouplist });
     } else {
-      const itemName = result.draggableId.split("-")[0];
-      const { updatedGrouplist } = groupToList(result, rest[itemName], groups);
+      const { updatedGrouplist } = groupToList(result, groups);
       updateState({ groups: updatedGrouplist });
     }
   };

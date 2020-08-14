@@ -16,8 +16,17 @@ import { updateCondition } from "../utils";
 const GroupsContainer = ({ group }) => {
   const { groups: groupsList, updateState } = useContext(GroupsContext);
 
-  const addComponent = () => {
+  const addComponent = condition => {
     if (group.when.length + 1 > 2) {
+      const updatedGroupsList = updateCondition(
+        group,
+        1,
+        groupsList,
+        {},
+        condition
+      );
+
+      updateState({ groups: updatedGroupsList });
       return;
     }
 
@@ -25,7 +34,8 @@ const GroupsContainer = ({ group }) => {
       group,
       group.when.length,
       groupsList,
-      initialComponentConfig
+      initialComponentConfig,
+      condition
     );
 
     updateState({ groups: updatedGroupsList });
@@ -54,10 +64,10 @@ const GroupsContainer = ({ group }) => {
         <pre>{JSON.stringify(group, null, 2)}</pre>
       </MainContent>
       <LogicalOperationsContainer>
-        <Button attached="left" basic onClick={addComponent}>
+        <Button attached="left" basic onClick={() => addComponent("AND")}>
           AND
         </Button>
-        <Button attached="right" basic onClick={addComponent}>
+        <Button attached="right" basic onClick={() => addComponent("OR")}>
           OR
         </Button>
       </LogicalOperationsContainer>
